@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% block title %}
+New
+{% endblock title %}
+
+
+{% block content %}
+<h1 style="font-size: 32px">{{ new.head|censor }}</h1>
+<p> {{ new.date_create|date:'d M Y' }} </p>
+<h2 style="font-size: 20px"> Author: {{ new.author }}</h2>
+<p> {{new.text|censor}} </p>
+{% if new.type == 'NW' %}
+    {% if perms.news.change_post %}
+        <a href="{% url 'news_edit' pk=new.pk %}">Edit news</a>
+    {% endif %}
+    {% if perms.news.delete_post %}
+        <a href="{% url 'news_delete' pk=new.pk %}">Delete news</a>
+    {% endif %}
+{% elif new.type == 'AR' %}
+    {% if perms.news.change_post %}
+        <a href="{% url 'articles_edit' pk=new.pk %}">Edit articles</a>
+    {% endif %}
+    {% if perms.news.delete_post %}
+        <a href="{% url 'articles_delete' pk=new.pk %}">Delete articles</a>
+    {% endif %}
+{% endif %}
+<hr>
+<h3 style="font-size: 25px">Comments:</h3>
+<p>{{new.comment}}</p>
+{% endblock content %}

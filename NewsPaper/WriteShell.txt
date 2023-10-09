@@ -1,0 +1,55 @@
+python manage.py shell
+from news.models import *
+u1 = User.objects.create_user(username='Lovecraft')
+u2 = User.objects.create_user(username='Denis')
+u3 = User.objects.create_user(username='Krylov')
+Author.objects.create(author=u1)
+Author.objects.create(author=u3)
+Category.objects.create(category='IT')
+Category.objects.create(category='Путешествия')
+Category.objects.create(category='Бизнес')
+Category.objects.create(category='Развлечение')
+author1=Author.objects.get(pk=1)
+author2=Author.objects.get(pk=2)
+Post.objects.create(author=author1, type='NW', head='Упал биткоин', text='Чтобы получить более точные прогнозы цен.')
+Post.objects.get(pk=1).category.add(Category.objects.get(pk=1))
+Post.objects.get(pk=1).category.add(Category.objects.get(pk=3))
+Post.objects.create(author=author1, type='AR', head='Филиппины', text='Довольно красивая страна, визовый режим-замечательный!')
+Post.objects.get(pk=1).category.add(Category.objects.get(pk=2))
+Post.objects.create(author=author1, type='AR', head='Мобильный гейминг', text='Вышла новая игра на всех площадках, уже набирает обороты')
+Post.objects.get(pk=2).category.add(Category.objects.get(pk=2))
+Post.objects.get(pk=3).category.add(Category.objects.get(pk=4))
+Comment.objects.create(commentPost=Post.objects.get(pk=1), commentUser=User.objects.get(pk=2), comment='Надеюсь упадет, чтоб купить.')
+Comment.objects.create(commentPost=Post.objects.get(pk=2), commentUser=User.objects.get(pk=1), comment='Крутое место!')
+Comment.objects.create(commentPost=Post.objects.get(pk=3), commentUser=User.objects.get(pk=2), comment='Вау')
+Comment.objects.create(commentPost=Post.objects.get(pk=2), commentUser=User.objects.get(pk=3), comment='ОГО-го-го')
+Comment.objects.get(pk=1).like()
+Comment.objects.get(pk=2).like()
+Comment.objects.get(pk=2).like()
+Post.objects.get(pk=1).dislike()
+Post.objects.get(pk=3).dislike()
+Post.objects.get(pk=1).like()
+Post.objects.get(pk=1).like()
+Post.objects.get(pk=1).like()
+Post.objects.get(pk=1).like()
+Post.objects.create(author=author2, type='NW', head='Lion', text='I like lion')
+Author.objects.get(pk=1).update_rating()
+Author.objects.get(pk=2).update_rating()
+Post.objects.get(pk=4).like()
+Author.objects.get(pk=2).update_rating()
+best=Author.objects.order_by('-rating_au')[:1]
+for i in best:
+...     i.rating_au
+...     i.author.username
+bestPost=Post.objects.order_by('-rating').first()
+bestPost.date_create
+bestPost.author
+bestPost.rating
+bestPost.head
+bestPost.preview()
+bestComment = Comment.objects.filter(commentPost = bestPost)
+for i in bestComment:
+...     i.date
+...     i.commentUser
+...     i.rating
+...     i.comment

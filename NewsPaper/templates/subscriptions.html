@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Subscriptions
+{% endblock title %}
+
+{% block content %}
+    <h1>Select a category to subscribe</h1>
+    {% for category in categories  %}
+        <p>
+            {{ category.category }}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="category_id" value="{{ category.id }}" />
+
+                {% if category.user_subscribed %}
+                    <button disabled>Subscribe</button>
+                    <button name="action" value="unsubscribe">Unsubscribe</button>
+                {% else %}
+                    <button name="action" value="subscribe">Subscribe</button>
+                    <button disabled>Unsubscribe</button>
+                {% endif %}
+            </form>
+        </p>
+
+    {% endfor %}
+    <p>"By subscribing, you will receive messages about new articles, as well as a weekly digest in the category you choose"</p>
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load cache %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% cache 60 All %}
+{% block content %}
+<h1>All posts on the site {{page_obj.paginator.count}}</h1>
+
+<ul type="disc">
+    {% for new in news %}
+        <li style="text-align: left;">
+            <small class="fw-bold"> {{new.date_create|date:'d M Y'}} </small>
+            <a href="{% url 'news_detail' pk=new.pk %}">
+            <strong style="font-size: 20px;">{{new.head|censor}}:</strong> </a>
+            <br> {{new.text|censor|truncatewords:20}}
+            <br> <small class="fw-bold" style="font-size: 13px" >Category:
+                    {% for category in new.category.all %}
+                        <a href="{% url 'category_list' category.id%}">{{ category }} </a>
+                    {% endfor %}
+                </small>
+        </li>
+
+    {% endfor %}
+</ul>
+
+{% if page_obj.has_previous %}
+       <a href="?page=1"><<</a>
+       <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       <a href="?page={{ page_obj.paginator.num_pages }}">>></a>
+   {% endif %}
+
+{% endblock content %}
+{% endcache %}
