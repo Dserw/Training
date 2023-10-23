@@ -1,16 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.db.models import Exists, OuterRef
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views import View
 from django.views.decorators.csrf import csrf_protect
 
 from .filters import PostFilter
 from .models import Post, Category, PostCategory
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from .forms import ArticleForm, NewsForm
+from django.utils.translation import gettext as _
 # Create your views here.
 
 
@@ -146,6 +148,4 @@ class CategoryList(PostsList):
         self.category = get_object_or_404(Category, id=self.kwargs['pk'])
         queryset = Post.objects.filter(category=self.category)
         return queryset
-
-
 

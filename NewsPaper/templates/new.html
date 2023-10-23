@@ -4,8 +4,8 @@
 New
 {% endblock title %}
 
-
 {% block content %}
+
 <h1 style="font-size: 32px">{{ new.head|censor }}</h1>
 <p> {{ new.date_create|date:'d M Y' }} </p>
 <h2 style="font-size: 20px"> Author: {{ new.author }}</h2>
