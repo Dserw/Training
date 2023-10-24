@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin, Group
-
+from modeltranslation.admin import TranslationAdmin
 from .models import *
 # Register your models here.
 
@@ -12,6 +12,12 @@ admin.site.register(Author)
 admin.site.register(PostCategory)
 
 
+class CategoryAdmin(TranslationAdmin):
+    model = Category
+
+
+class PostAdmin(TranslationAdmin):
+    model = Post
 
 class SubscriberInline(admin.TabularInline):
     model = Subscriber
