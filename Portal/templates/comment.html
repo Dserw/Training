@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+
+<html>
+<head>
+<title>{% block title %}Комментарии{% endblock title %}</title>
+</head>
+<body>
+{% block content %}
+    <h1 style="text-align: center;">Коментарий</h1>
+    <hr>
+        <table rules="all">
+            <tr>
+                <td><h2><strong>Текст</strong></h2></td>
+                <td></td>
+                <td><h2><strong>Автор</strong></h2></td>
+            </tr>
+            <tr>
+                <td>{{ comment.text }}</td>
+                <td></td>
+                <td>{{ comment.author }}</td>
+            </tr>
+        </table>
+    <br>
+    <br>
+    <a href="{% url 'comment_delete' comment.id %}" target="_blank">Удалить комментарий</a>
+    <br>
+    <br>
+    <a href="{% url 'comment_accept' comment.id %}" target="_blank">Принять комментарий</a>
+    <br>
+{% endblock content %}
+</body>
+</html>

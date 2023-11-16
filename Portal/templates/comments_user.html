@@ -1,0 +1,34 @@
+{% extends 'flatpages/default.html' %}
+
+<html>
+<head>
+<title>{% block title %}Комментарии{% endblock title %}</title>
+</head>
+<body>
+{% block content %}
+    <h1 style="text-align: center;">Комментарии к посту "{{ post.title }}"</h1>
+    <hr>
+        {% for comment in comments_user %}
+    <div>
+        <a href="{% url 'comment' pk=comment.pk %}" target="_blank">{{ comment.text }}</a>
+    </div>
+  {% endfor %}
+    <br>
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+   {{ page_obj.number }}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+{% endblock content %}
+</body>
+</html>

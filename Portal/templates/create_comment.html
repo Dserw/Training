@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}Comment On Blog Post!{% endblock %}
+
+{% block content%}
+
+{% if user.is_authenticated %}
+    <h1>Add Comment ...</h1>
+    </br></br>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Add comment"/>
+    </form>
+
+{% else %}
+
+    Please login to add comment ...
+
+{% endif %}
+
+{% endblock %}

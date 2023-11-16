@@ -1,0 +1,9 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block content %}
+    <h1 style="text-align: center;">Вы приняли отзыв</h1>
+    {% if user.is_authenticated %}
+        <a href="{% url 'posts' %}"><h4><span style="color: #800080;"><strong>На главную</strong></span></h4></a>
+    {% endif %}
+{% endblock content %}

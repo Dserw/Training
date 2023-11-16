@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+posts
+{% endblock title %}
+
+{% block content %}
+
+<h1 style="font-size: 32px">{{ post.title }}</h1>
+<p> {{ post.date_create|date:'d M Y' }} </p>
+<h2 style="font-size: 20px"> Author: {{ post.author }}</h2>
+
+
+<p> {{post.text }} </p>
+
+        <a href="{% url 'post_update' pk=post.pk  %}">Edit post</a>
+        <a href="{% url 'post_delete' pk=post.pk %}">Delete post</a>
+<hr>
+        <a href="{% url 'create_comment' pk=post.pk  %}">Add comment</a>
+        <a href="{% url 'comments_user' pk=post.pk %}">Comments list</a>
+{% endblock content %}
+
