@@ -1,0 +1,43 @@
+nav {
+    text-align: center;
+    background-color: #101010; /* Цвет фона навигации */
+    color: white; /* Цвет текста навигации */
+}
+
+h1, .navigation {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.navigation {
+    list-style: none;
+    padding: 0;
+    margin-left: 20px; /* Добавьте отступ между заголовком и навигацией, если нужно */
+}
+
+.navigation li {
+    display: inline-block;
+}
+
+.navigation a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navigation a:hover {
+    background-color: gray;
+    color: #101010;
+}
+
+img {
+    float: left; 
+    margin-right: 20px; 
+}
+
+
+
+hr {
+    margin-top: 60px; /* Измените значение, чтобы задать нужный вам отступ вниз */
+}
